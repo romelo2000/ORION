@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORION — Локальная AI-студия на вашем Mac</title>
+    <meta name="description" content="ORION — локальная AI-студия: диалог, генерация медиа, lip-sync. Всё на вашем Mac, без облака и подписок.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0e1a;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2332;
+            --accent: #f5b86a;
+            --accent-glow: rgba(245, 184, 106, 0.15);
+            --blue: #4a8fff;
+            --text: #e8edf5;
+            --text-dim: #8896b0;
+            --border: #1e2d44;
+            --green: #33c27f;
+            --red: #f5705a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── Nav ──────────────────────────────────── */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(10, 14, 26, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+        }
+        nav .inner {
+            max-width: 1100px; margin: 0 auto; padding: 0 24px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        nav .logo {
+            font-size: 20px; font-weight: 800; letter-spacing: 1px;
+            color: var(--accent);
+        }
+        nav .links { display: flex; gap: 28px; align-items: center; }
+        nav a { color: var(--text-dim); text-decoration: none; font-size: 14px; transition: color .2s; }
+        nav a:hover { color: var(--text); }
+        nav .buy {
+            background: var(--accent); color: #1a1208; padding: 8px 20px;
+            border-radius: 8px; font-weight: 600; font-size: 14px;
+        }
+        nav .buy:hover { background: #ffc878; color: #1a1208; }
+
+        /* ── Hero ─────────────────────────────────── */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 120px 24px 60px;
+            background: radial-gradient(ellipse at 50% 0%, var(--accent-glow) 0%, transparent 60%);
+        }
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px); font-weight: 800;
+            line-height: 1.15; max-width: 800px; margin: 0 auto 20px;
+        }
+        .hero h1 .highlight { color: var(--accent); }
+        .hero .tagline {
+            font-size: clamp(16px, 2.5vw, 22px); color: var(--text-dim);
+            max-width: 600px; margin: 0 auto 16px;
+        }
+        .hero .subtag {
+            font-size: 14px; color: var(--text-dim); margin-bottom: 36px;
+        }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            background: var(--accent); color: #1a1208; padding: 14px 32px;
+            border-radius: 10px; font-weight: 700; font-size: 17px;
+            text-decoration: none; transition: transform .2s, box-shadow .2s;
+            box-shadow: 0 4px 20px rgba(245, 184, 106, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(245, 184, 106, 0.4); }
+        .btn-secondary {
+            background: var(--bg-card); color: var(--text); padding: 14px 32px;
+            border-radius: 10px; font-weight: 600; font-size: 17px;
+            text-decoration: none; border: 1px solid var(--border); transition: .2s;
+        }
+        .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--accent); }
+
+        /* ── Gallery ──────────────────────────────── */
+        .gallery-strip {
+            display: flex; gap: 12px; overflow-x: auto; padding: 40px 24px;
+            max-width: 1200px; margin: 0 auto; scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        .gallery-strip::-webkit-scrollbar { height: 6px; }
+        .gallery-strip::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .gallery-strip img {
+            height: 220px; border-radius: 12px; border: 1px solid var(--border);
+            transition: transform .3s, box-shadow .3s;
+        }
+        .gallery-strip img:hover {
+            transform: scale(1.05); box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        /* ── Sections ─────────────────────────────── */
+        section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+        section h2 {
+            font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+            text-align: center; margin-bottom: 12px;
+        }
+        section .subtitle {
+            text-align: center; color: var(--text-dim); font-size: 16px;
+            margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto;
+        }
+
+        /* ── Feature cards ────────────────────────── */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .feature-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 28px; transition: .2s;
+        }
+        .feature-card:hover { background: var(--bg-card-hover); border-color: var(--accent); }
+        .feature-card .icon { font-size: 32px; margin-bottom: 14px; }
+        .feature-card h3 { font-size: 20px; margin-bottom: 8px; }
+        .feature-card p { color: var(--text-dim); font-size: 14px; line-height: 1.7; }
+        .feature-card ul { list-style: none; margin-top: 10px; }
+        .feature-card ul li {
+            color: var(--text-dim); font-size: 13px; padding: 4px 0;
+            padding-left: 22px; position: relative;
+        }
+        .feature-card ul li::before { content: "▸"; color: var(--accent); position: absolute; left: 0; }
+
+        /* ── Gallery grid ─────────────────────────── */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .gallery-grid img {
+            width: 100%; border-radius: 12px; border: 1px solid var(--border);
+            transition: transform .3s, box-shadow .3s;
+        }
+        .gallery-grid img:hover {
+            transform: scale(1.03); box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+
+        /* ── Pricing ──────────────────────────────── */
+        .pricing-card {
+            max-width: 480px; margin: 0 auto;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 40px; text-align: center;
+        }
+        .pricing-card .price {
+            font-size: 48px; font-weight: 800; color: var(--accent); margin: 16px 0;
+        }
+        .pricing-card .price-period { font-size: 16px; color: var(--text-dim); }
+        .pricing-card ul {
+            list-style: none; text-align: left; margin: 24px 0;
+        }
+        .pricing-card ul li {
+            padding: 10px 0; border-bottom: 1px solid var(--border);
+            color: var(--text); font-size: 15px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .pricing-card ul li::before { content: "✓"; color: var(--green); font-weight: bold; }
+        .pricing-card .cta {
+            display: block; margin-top: 20px; padding: 16px;
+            background: var(--accent); color: #1a1208; border-radius: 10px;
+            font-weight: 700; font-size: 18px; text-decoration: none;
+        }
+        .pricing-card .cta:hover { background: #ffc878; }
+        .pricing-card .trial {
+            margin-top: 12px; color: var(--text-dim); font-size: 13px;
+        }
+
+        /* ── FAQ ──────────────────────────────────── */
+        .faq-item {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 20px 24px; margin-bottom: 12px;
+            cursor: pointer; transition: .2s;
+        }
+        .faq-item:hover { border-color: var(--accent); }
+        .faq-item .q {
+            font-weight: 600; font-size: 16px; display: flex;
+            justify-content: space-between; align-items: center;
+        }
+        .faq-item .q::after { content: "+"; color: var(--accent); font-size: 20px; }
+        .faq-item.open .q::after { content: "−"; }
+        .faq-item .a {
+            color: var(--text-dim); font-size: 14px; margin-top: 12px;
+            display: none; line-height: 1.7;
+        }
+        .faq-item.open .a { display: block; }
+
+        /* ── Requirements ─────────────────────────── */
+        .req-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; max-width: 700px; margin: 0 auto;
+        }
+        .req-item {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 20px; text-align: center;
+        }
+        .req-item .icon { font-size: 28px; margin-bottom: 8px; }
+        .req-item .label { font-size: 13px; color: var(--text-dim); }
+
+        /* ── Footer ───────────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border); padding: 40px 24px;
+            text-align: center; color: var(--text-dim); font-size: 13px;
+        }
+        footer a { color: var(--text-dim); text-decoration: none; }
+        footer a:hover { color: var(--accent); }
+
+        /* ── Privacy badge ────────────────────────── */
+        .privacy-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(51, 194, 127, 0.1); border: 1px solid rgba(51, 194, 127, 0.3);
+            color: var(--green); padding: 8px 16px; border-radius: 20px;
+            font-size: 13px; font-weight: 600; margin-bottom: 24px;
+        }
+
+        @media (max-width: 600px) {
+            nav .links a:not(.buy) { display: none; }
+            .hero { padding-top: 100px; }
+            section { padding: 60px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Nav ──────────────────────────────────────── -->
+<nav>
+    <div class="inner">
+        <div class="logo">ORION</div>
+        <div class="links">
+            <a href="#features">Возможности</a>
+            <a href="#gallery">Рендеры</a>
+            <a href="#pricing">Цена</a>
+            <a href="#faq">FAQ</a>
+            <a href="https://github.com/romelo2000/ORION/releases" class="buy">Скачать</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────── -->
+<div class="hero">
+    <div>
+        <div class="privacy-badge">🔒 100% локально · без облака · без подписок</div>
+        <h1>AI-студия, которая живёт<br>на вашем <span class="highlight">Mac</span></h1>
+        <p class="tagline">ORION — локальная AI-платформа для диалога, генерации медиа и lip-sync. Всё работает на вашем компьютере.</p>
+        <p class="subtag">Никаких облаков. Никаких серверов. Никаких утечек данных.</p>
+        <div class="cta-group">
+            <a href="https://github.com/romelo2000/ORION/releases" class="btn-primary">Скачать бесплатно</a>
+            <a href="#features" class="btn-secondary">Узнать больше</a>
+        </div>
+    </div>
+</div>
+
+<!-- ── Gallery strip ────────────────────────────── -->
+<div class="gallery-strip">
+    <img src="images/s1__s1_sh1_x2__1.lock.png" alt="ORION render frame 1">
+    <img src="images/s2__s2_sh2__1.png" alt="ORION render frame 2">
+    <img src="images/s5__s5_sh1__1.png" alt="ORION render frame 3">
+    <img src="images/s8__s8_sh1__1.png" alt="ORION render frame 4">
+    <img src="images/s17__s17_sh1__1.png" alt="ORION render frame 5">
+    <img src="images/s14__s14_sh1__1.png" alt="ORION render frame 6">
+    <img src="images/s6__s6_sh1__1.png" alt="ORION render frame 7">
+    <img src="images/s12_sh1__svd_src.png" alt="ORION render frame 8">
+</div>
+
+<!-- ── Features ─────────────────────────────────── -->
+<section id="features">
+    <h2>Что умеет ORION</h2>
+    <p class="subtitle">Четыре модуля в одном приложении. Каждый работает локально.</p>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="icon">🧠</div>
+            <h3>NEXUS — Диалог</h3>
+            <p>Живое общение с локальным LLM. Самосознание, память, самообучение.</p>
+            <ul>
+                <li>Диалог через Ollama (Qwen, Llama)</li>
+                <li>Семантическая + эпизодическая память</li>
+                <li>Мультиагентный анализ (4 роли)</li>
+                <li>Веб-поиск через DuckDuckGo</li>
+                <li>Авто-тюнинг промптов</li>
+                <li>Экспорт диалогов в Markdown</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🎬</div>
+            <h3>ATELIER — Кинопайплайн</h3>
+            <p>От идеи до готового MP4 одной кнопкой. Сценарий, раскадровка, рендер, анимация.</p>
+            <ul>
+                <li>Идея → Сценарий → Раскадровка → MP4</li>
+                <li>Стили: photoreal, anime, cyberpunk, cartoon</li>
+                <li>SDXL генерация через ComfyUI</li>
+                <li>LTX-Video анимация</li>
+                <li>Авто-режиссёр и сценарист</li>
+                <li>Пакетная обработка кадров</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">⚡</div>
+            <h3>FORGE — Код-мастерская</h3>
+            <p>Генерация кода с безопасным запуском. Slash-команды, мульти-файлы, FIM.</p>
+            <ul>
+                <li>/review, /refactor, /explain, /test</li>
+                <li>/generate, /fix, /run, /diff</li>
+                <li>Безопасный sandbox</li>
+                <li>Мульти-файловая генерация</li>
+                <li>Сканер проектов + библиотека</li>
+                <li>One-click .command лаунчер</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🎥</div>
+            <h3>Media Generation</h3>
+            <p>Генерация изображений, видео, lip-sync и анимации лиц.</p>
+            <ul>
+                <li>SDXL изображения (ComfyUI)</li>
+                <li>LTX-Video генерация</li>
+                <li>LatentSync — lip-sync видео</li>
+                <li>LivePortrait — анимация лица</li>
+                <li>One-click пайплайн: фото → видео</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🎙️</div>
+            <h3>Voice — Голос</h3>
+            <p>Речевой ввод и вывод в реальном времени. Несколько TTS-движков.</p>
+            <ul>
+                <li>Speech-to-text ввод</li>
+                <li>macOS Say (встроенный)</li>
+                <li>Chatterbox TTS</li>
+                <li>Qwen3-TTS</li>
+                <li>Голосовой диалог без клавиатуры</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🧬</div>
+            <h3>Self-Awareness</h3>
+            <p>ORION знает кто он, что умеет, и учится на каждом диалоге.</p>
+            <ul>
+                <li>Идентичность и личность</li>
+                <li>Self-observer: извлечение фактов</li>
+                <li>Авто-тюнинг моделей</li>
+                <li>Prompt-патчи из опыта</li>
+                <li>Сценарный радар (risk/impact)</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ── Gallery ──────────────────────────────────── -->
+<section id="gallery">
+    <h2>Рендеры ORION</h2>
+    <p class="subtitle">Кадры, сгенерированные через ATELIER pipeline (SDXL + LTX-Video)</p>
+
+    <div class="gallery-grid">
+        <img src="images/s1__s1_sh1_x2__1.lock.png" alt="Render frame 1">
+        <img src="images/s8__s8_sh1__1.png" alt="Render frame 2">
+        <img src="images/s17__s17_sh1__1.png" alt="Render frame 3">
+        <img src="images/s5__s5_sh1__1.png" alt="Render frame 4">
+        <img src="images/s2__s2_sh2__1.png" alt="Render frame 5">
+        <img src="images/s14__s14_sh1__1.png" alt="Render frame 6">
+        <img src="images/s6__s6_sh1__1.png" alt="Render frame 7">
+        <img src="images/s12_sh1__svd_src.png" alt="Render frame 8">
+    </div>
+</section>
+
+<!-- ── Requirements ─────────────────────────────── -->
+<section id="requirements">
+    <h2>Системные требования</h2>
+    <p class="subtitle">ORION работает на Mac с Apple Silicon</p>
+
+    <div class="req-grid">
+        <div class="req-item">
+            <div class="icon">🖥️</div>
+            <div class="label">macOS 12.0+</div>
+        </div>
+        <div class="req-item">
+            <div class="icon">🍎</div>
+            <div class="label">Apple Silicon (M1/M2/M3/M4)</div>
+        </div>
+        <div class="req-item">
+            <div class="icon">💾</div>
+            <div class="label">16 GB RAM мин.<br>(32 GB реком.)</div>
+        </div>
+        <div class="req-item">
+            <div class="icon">📦</div>
+            <div class="label">~6 GB места<br>(модели + приложение)</div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Pricing ──────────────────────────────────── -->
+<section id="pricing">
+    <h2>Одна покупка. Никаких подписок.</h2>
+    <p class="subtitle">Платите один раз — пользуетесь вечно.</p>
+
+    <div class="pricing-card">
+        <h3>Полная лицензия ORION Pro</h3>
+        <div class="price">— ₽</div>
+        <div class="price-period">единоразово · пожизненно</div>
+
+        <ul>
+            <li>7 дней бесплатного пробного периода</li>
+            <li>NEXUS — диалог с локальным LLM</li>
+            <li>ATELIER — кинопайплайн (идея → MP4)</li>
+            <li>FORGE — генерация кода</li>
+            <li>Media generation (ComfyUI, LatentSync)</li>
+            <li>Voice — голосовой ввод/вывод</li>
+            <li>Self-awareness и память</li>
+            <li>100% офлайн — без облака</li>
+            <li>Пожизненные обновления</li>
+        </ul>
+
+        <a href="https://github.com/romelo2000/ORION/releases" class="cta">Скачать ORION</a>
+        <p class="trial">После пробного периода активируйте Pro-ключ в приложении</p>
+    </div>
+</section>
+
+<!-- ── FAQ ──────────────────────────────────────── -->
+<section id="faq">
+    <h2>Частые вопросы</h2>
+
+    <div class="faq-item">
+        <div class="q">Нужен ли интернет для работы?</div>
+        <div class="a">Нет. ORION работает полностью офлайн. Интернет нужен только для скачивания приложения и моделей при первой установке. Веб-поиск в диалоге — опциональная функция через DuckDuckGo.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Какие модели использует ORION?</div>
+        <div class="a">Основная модель — qwen2.5:7b-instruct (через Ollama). Для систем с 32 GB+ RAM рекомендуется qwen2.5:32b для лучшего качества диалога. Для эмбеддингов — bge-m3. Модели скачиваются автоматически при первом запуске.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Мои данные уходят на серверы?</div>
+        <div class="a">Нет. Все диалоги, память и настройки хранятся локально в ~/Documents/ORION/. Ничего не отправляется на внешние серверы. Никакой телеметрии, никаких аналитики.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Что нужно установить дополнительно?</div>
+        <div class="a">ORION включает все Python-зависимости в .dmg. Мастер установки при первом запуске предложит установить Ollama (LLM движок) и ffmpeg (видео) одной кнопкой. Для Pro-функций: ComfyUI, LatentSync, LivePortrait — по желанию.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Работает ли на Intel Mac?</div>
+        <div class="a">Текущая сборка оптимизирована для Apple Silicon (M1/M2/M3/M4). Intel-версия может быть выпущена позже по запросу.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Можно ли использовать без GPU?</div>
+        <div class="a">На Apple Silicon GPU используется автоматически через Metal. Отдельная видеокарта не нужна — M-чипы имеют встроенный GPU.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Как активировать Pro-лицензию?</div>
+        <div class="a">После покупки вы получите лицензионный ключ. Откройте ORION → строка меню → License → Activate. Введите email и ключ. Готово.</div>
+    </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────── -->
+<footer>
+    <p>ORION © 2026 — Локальная AI-студия для Mac</p>
+    <p style="margin-top:8px">
+        <a href="https://github.com/romelo2000/ORION">GitHub</a> ·
+        <a href="https://github.com/romelo2000/ORION/releases">Скачать</a> ·
+        Поддержка: <a href="mailto:support@matoka.studio">support@matoka.studio</a>
+    </p>
+    <p style="margin-top:12px; font-size:11px; color:#5a6580">
+        Powered by Ollama · PyTorch · PySide6 · ComfyUI · LatentSync · LivePortrait
+    </p>
+</footer>
+
+<script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+            item.classList.toggle('open');
+        });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) target.scrollIntoTop({ behavior: 'smooth' });
+        });
+    });
+</script>
+
+</body>
+</html>
