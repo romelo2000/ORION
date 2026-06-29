@@ -30,6 +30,11 @@
             overflow-x: hidden;
         }
 
+        .icon, .emoji, .doc-icon {
+            font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Noto Sans Emoji', sans-serif;
+            font-style: normal;
+        }
+
         /* ── Nav ──────────────────────────────────── */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 100;
@@ -224,6 +229,39 @@
             font-size: 13px; font-weight: 600; margin-bottom: 24px;
         }
 
+        /* ── Docs / Manuals ───────────────────────── */
+        .doc-accordion { max-width: 800px; margin: 0 auto; }
+        .doc-item {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; margin-bottom: 12px; overflow: hidden; transition: .2s;
+        }
+        .doc-item:hover { border-color: var(--accent); }
+        .doc-item .doc-header {
+            padding: 18px 24px; cursor: pointer; display: flex;
+            align-items: center; gap: 14px; user-select: none;
+        }
+        .doc-item .doc-header .doc-icon { font-size: 24px; width: 32px; text-align: center; }
+        .doc-item .doc-header .doc-title { font-weight: 600; font-size: 17px; flex: 1; }
+        .doc-item .doc-header .doc-tag {
+            font-size: 11px; color: var(--text-dim); background: var(--bg);
+            padding: 3px 10px; border-radius: 12px; border: 1px solid var(--border);
+        }
+        .doc-item .doc-header .doc-toggle { color: var(--accent); font-size: 20px; transition: transform .2s; }
+        .doc-item.open .doc-toggle { transform: rotate(45deg); }
+        .doc-item .doc-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+        .doc-item.open .doc-body { max-height: 1500px; }
+        .doc-item .doc-body-inner { padding: 0 24px 24px; color: var(--text-dim); font-size: 14px; line-height: 1.8; }
+        .doc-item .doc-body-inner h4 { color: var(--accent); font-size: 14px; margin: 16px 0 6px; font-weight: 600; }
+        .doc-item .doc-body-inner p { margin-bottom: 8px; }
+        .doc-item .doc-body-inner ul { list-style: none; margin: 8px 0 12px; }
+        .doc-item .doc-body-inner ul li { padding: 3px 0 3px 18px; position: relative; }
+        .doc-item .doc-body-inner ul li::before { content: "\2192"; color: var(--accent); position: absolute; left: 0; }
+        .doc-item .doc-body-inner .shortcut {
+            background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+            padding: 2px 8px; font-size: 12px; color: var(--accent);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
         /* ── Collaboration ────────────────────────── */
         .collab-card {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -254,6 +292,7 @@
         <div class="links">
             <a href="#features">Возможности</a>
             <a href="#gallery">Рендеры</a>
+            <a href="#docs">Документация</a>
             <a href="#pricing">Цена</a>
             <a href="#faq">FAQ</a>
             <a href="https://github.com/romelo2000/ORION/releases" class="buy">Скачать</a>
@@ -482,6 +521,172 @@
     <div class="faq-item">
         <div class="q">Как активировать Pro-лицензию?</div>
         <div class="a">После покупки вы получите лицензионный ключ. Откройте ORION → строка меню → License → Activate. Введите email и ключ. Готово.</div>
+    </div>
+</section>
+
+<!-- ── Documentation ───────────────────────────── -->
+<section id="docs">
+    <h2>Документация</h2>
+    <p class="subtitle">Краткие мануалы по каждому модулю ORION</p>
+    <div class="doc-accordion">
+        <div class="doc-item">
+            <div class="doc-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="doc-icon">🧠</span>
+                <span class="doc-title">NEXUS — Диалог с AI</span>
+                <span class="doc-tag">основной модуль</span>
+                <span class="doc-toggle">+</span>
+            </div>
+            <div class="doc-body"><div class="doc-body-inner">
+                <p>NEXUS — сердце ORION. Живой диалог с локальным LLM через Ollama. ORION не просто отвечает — он запоминает, учится и развивает личность.</p>
+                <h4>Что умеет</h4>
+                <ul>
+                    <li>Ведёт осмысленный диалог на русском и английском</li>
+                    <li>Запоминает факты о вас и о себе (семантическая + эпизодическая память)</li>
+                    <li>Анализирует решения с 4 позиций: оптимист, пессимист, реалист, дисруптор</li>
+                    <li>Ищет в интернете через DuckDuckGo (опционально)</li>
+                    <li>Адаптирует стиль общения на основе обратной связи</li>
+                    <li>Экспортирует диалоги в Markdown</li>
+                </ul>
+                <h4>Как использовать</h4>
+                <p>Просто начните печатать в окне диалога. ORION отвечает в реальном времени.</p>
+                <p>Кнопки под ответом: <span class="shortcut">👍</span> хороший ответ, <span class="shortcut">👎</span> не то — ORION учится.</p>
+                <p>Вкладка «Самосознание» — показывает что ORION знает о себе и о вас.</p>
+                <h4>Модели</h4>
+                <p>По умолчанию: <span class="shortcut">qwen2.5:7b-instruct</span>. Для 32 GB+ RAM: <span class="shortcut">qwen2.5:32b</span> для лучшего качества.</p>
+                <p>Переключить модель: переменная окружения <span class="shortcut">ORION_CONVERSE_MODEL</span>.</p>
+            </div></div>
+        </div>
+        <div class="doc-item">
+            <div class="doc-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="doc-icon">🎬</span>
+                <span class="doc-title">ATELIER — Кинопайплайн</span>
+                <span class="doc-tag">Pro</span>
+                <span class="doc-toggle">+</span>
+            </div>
+            <div class="doc-body"><div class="doc-body-inner">
+                <p>ATELIER превращает идею в готовый видеоролик. Цепочка: идея → сценарий → раскадровка → рендер кадров → анимация → финальный MP4.</p>
+                <h4>Пайплайн</h4>
+                <ul>
+                    <li><b>Идея</b> — вы описываете концепцию одним предложением</li>
+                    <li><b>Сценарий</b> — AI пишет структуру: сцены, кадры, описание</li>
+                    <li><b>Раскадровка</b> — генерация промптов для каждого кадра</li>
+                    <li><b>Рендер</b> — SDXL генерирует изображения через ComfyUI</li>
+                    <li><b>Анимация</b> — LTX-Video оживляет кадры</li>
+                    <li><b>Сборка</b> — ffmpeg собирает финальный MP4</li>
+                </ul>
+                <h4>Стили генерации</h4>
+                <ul>
+                    <li><b>Photoreal</b> — фотореалистичные кадры</li>
+                    <li><b>Anime</b> — аниме-стилистика</li>
+                    <li><b>Cyberpunk</b> — неон, футуризм</li>
+                    <li><b>Cartoon</b> — мультяшный стиль</li>
+                </ul>
+                <h4>Требования</h4>
+                <p>Нужен установленный <b>ComfyUI</b> с чекпоинтом SDXL (рекомендуется <span class="shortcut">DreamShaperXL_Lightning</span>).</p>
+                <p>Для видео: модель <span class="shortcut">ltx-video-2.3.safetensors</span> в папке <span class="shortcut">ComfyUI/models/video/</span>.</p>
+                <h4>Запуск</h4>
+                <p>Вкладка «ATELIER» → введите идею → нажмите «Полный цикл». ORION сделает всё сам.</p>
+            </div></div>
+        </div>
+        <div class="doc-item">
+            <div class="doc-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="doc-icon">⚡</span>
+                <span class="doc-title">FORGE — Код-мастерская</span>
+                <span class="doc-tag">Pro</span>
+                <span class="doc-toggle">+</span>
+            </div>
+            <div class="doc-body"><div class="doc-body-inner">
+                <p>FORGE — встроенный AI-кодер. Генерирует, проверяет и запускает код. Работает в потоковом режиме с подсветкой синтаксиса.</p>
+                <h4>Slash-команды</h4>
+                <ul>
+                    <li><span class="shortcut">/review</span> — ревью вашего кода</li>
+                    <li><span class="shortcut">/refactor</span> — рефакторинг</li>
+                    <li><span class="shortcut">/explain</span> — объяснить как работает код</li>
+                    <li><span class="shortcut">/test</span> — сгенерировать тесты</li>
+                    <li><span class="shortcut">/generate</span> — сгенерировать новый код</li>
+                    <li><span class="shortcut">/fix</span> — исправить ошибку</li>
+                    <li><span class="shortcut">/run</span> — запустить код в sandbox</li>
+                    <li><span class="shortcut">/diff</span> — показать изменения</li>
+                    <li><span class="shortcut">/scan</span> — просканировать проект</li>
+                    <li><span class="shortcut">/fim</span> — fill-in-the-middle completion</li>
+                    <li><span class="shortcut">/lib</span> — библиотека сниппетов</li>
+                    <li><span class="shortcut">/help</span> — справка</li>
+                </ul>
+                <h4>Безопасность</h4>
+                <p>Код выполняется в изолированном sandbox с AST-анализом. Опасные операции (удаление файлов, сетевые запросы) блокируются.</p>
+                <h4>Авто-fix</h4>
+                <p>Если код падает в sandbox — FORGE автоматически предлагает исправление. Включается чекбоксом «Авто-fix».</p>
+                <h4>Мульти-файлы</h4>
+                <p>FORGE может генерировать несколько файлов за раз. Используйте маркер <span class="shortcut">// file: path</span> в выводе.</p>
+            </div></div>
+        </div>
+        <div class="doc-item">
+            <div class="doc-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="doc-icon">🎥</span>
+                <span class="doc-title">Media Generation</span>
+                <span class="doc-tag">Pro</span>
+                <span class="doc-toggle">+</span>
+            </div>
+            <div class="doc-body"><div class="doc-body-inner">
+                <p>Генерация изображений, видео и lip-sync — всё локально на вашем Mac.</p>
+                <h4>Изображения (SDXL)</h4>
+                <p>Генерация через ComfyUI. Поддержка ControlNet (OpenPose, Depth, Canny).</p>
+                <p>Чекпоинты кладутся в <span class="shortcut">ComfyUI/models/checkpoints/</span>.</p>
+                <h4>Видео (LTX-Video)</h4>
+                <p>Text-to-video и Image-to-video генерация. Модель: <span class="shortcut">ltx-video-2.3.safetensors</span>.</p>
+                <h4>LatentSync — Lip-sync</h4>
+                <p>Синхронизация губ на видео с аудиодорожкой. Создаёт talking-head видео.</p>
+                <p>Требует: клон <span class="shortcut">~/latentsync</span> + модельные чекпоинты.</p>
+                <h4>LivePortrait — Анимация лица</h4>
+                <p>Оживляет статичное фото по образцу мимики из видео. Один кадр → видео с мимикой.</p>
+            </div></div>
+        </div>
+        <div class="doc-item">
+            <div class="doc-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="doc-icon">🎙️</span>
+                <span class="doc-title">Voice — Голосовой ввод/вывод</span>
+                <span class="doc-tag">опционально</span>
+                <span class="doc-toggle">+</span>
+            </div>
+            <div class="doc-body"><div class="doc-body-inner">
+                <p>Голосовой режим — говорите с ORION без клавиатуры. Речевой ввод + синтез речи.</p>
+                <h4>TTS-движки</h4>
+                <ul>
+                    <li><b>say</b> — встроенный macOS (по умолчанию, без установки)</li>
+                    <li><b>Chatterbox</b> — <span class="shortcut">pip install chatterbox-tts</span></li>
+                    <li><b>Qwen3-TTS</b> — продвинутый TTS через Ollama</li>
+                </ul>
+                <h4>Запуск</h4>
+                <p>Терминал: <span class="shortcut">./RunORION_Voice.command say</span></p>
+                <p>Или в приложении: Menu → Voice → Start voice loop.</p>
+                <h4>STT</h4>
+                <p>Распознавание речи через встроенный macOS Speech Framework. Работает без интернета.</p>
+            </div></div>
+        </div>
+        <div class="doc-item">
+            <div class="doc-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="doc-icon">🧬</span>
+                <span class="doc-title">Self-Awareness — Самосознание</span>
+                <span class="doc-tag">экспериментальный</span>
+                <span class="doc-toggle">+</span>
+            </div>
+            <div class="doc-body"><div class="doc-body-inner">
+                <p>ORION знает кто он, что умеет, и учится на каждом диалоге. Это не просто LLM — это агент с памятью и идентичностью.</p>
+                <h4>Идентичность</h4>
+                <p>ORION имеет имя, характер, стиль общения. Хранится в <span class="shortcut">~/Documents/ORION/.state/self_model.json</span>.</p>
+                <p>Может выбрать себе имя сам — если напишет <span class="shortcut">[MY_NAME: ...]</span> в ответе.</p>
+                <h4>Память</h4>
+                <ul>
+                    <li><b>Семантическая</b> — факты («пользователь любит Python»)</li>
+                    <li><b>Эпизодическая</b> — каждый диалог как эпизод с оценкой</li>
+                    <li><b>Сессии</b> — разделение на тематические беседы</li>
+                </ul>
+                <h4>Self-observer</h4>
+                <p>Каждые 5 диалогов ORION анализирует себя: что получилось, что нет, какие паттерны. Извлекает факты и корректирует поведение.</p>
+                <h4>Вкладка «Самосознание»</h4>
+                <p>Показывает: идентичность, текущее состояние, факты о себе, факты о пользователе, последние эпизоды, список сессий.</p>
+            </div></div>
+        </div>
     </div>
 </section>
 
