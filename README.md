@@ -128,7 +128,7 @@ For systems with 32 GB+ RAM, `qwen2.5:32b-instruct-q4_K_M` is recommended for be
 ## Support
 
 - **Issues:** [GitHub Issues](../../issues)
-- **Email:** support@matoka.studio
+- **Email:** matoka2026@proton.me
 
 ---
 
