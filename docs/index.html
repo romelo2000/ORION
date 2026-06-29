@@ -539,38 +539,38 @@
     </div>
 
     <div class="faq-item">
-        <div class="q">NEXUS — как работает диалог с AI?</div>
-        <div class="a">NEXUS — основной модуль ORION. Живой диалог с локальным LLM через Ollama. ORION запоминает факты о вас и о себе (семантическая + эпизодическая память), анализирует решения с 4 позиций (оптимист, пессимист, реалист, дисруптор), ищет в интернете через DuckDuckGo (опционально), адаптирует стиль общения на основе обратной связи. Кнопки 👍/👎 под ответом помогают ORION учиться. По умолчанию: qwen2.5:7b-instruct. Для 32 GB+ RAM: qwen2.5:32b для лучшего качества.</div>
+        <div class="q">NEXUS — что это?</div>
+        <div class="a">Сердце ORION — живой диалог с локальным AI. Запоминает, учится, рассуждает с разных позиций. Кнопки 👍/👎 помогают ему становиться лучше.</div>
     </div>
 
     <div class="faq-item">
-        <div class="q">ATELIER — как работает кинопайплайн?</div>
-        <div class="a">ATELIER превращает идею в готовый видеоролик: идея → сценарий → раскадровка → рендер кадров → анимация → финальный MP4. Стили: photoreal, anime, cyberpunk, cartoon. Нужен ComfyUI с чекпоинтом SDXL (DreamShaperXL_Lightning). Для видео: ltx-video-2.3.safetensors. Запуск: вкладка «ATELIER» → введите идею → «Полный цикл».</div>
+        <div class="q">ATELIER — что это?</div>
+        <div class="a">Кинопайплайн: одна фраза → готовый видеоролик. Сценарий, раскадровка, рендер, анимация — автоматически. Стили: photoreal, anime, cyberpunk, cartoon.</div>
     </div>
 
     <div class="faq-item">
-        <div class="q">FORGE — какие slash-команды есть?</div>
-        <div class="a">FORGE — встроенный AI-кодер: /review (ревью), /refactor (рефакторинг), /explain (объяснить код), /test (тесты), /generate (новый код), /fix (исправить ошибку), /run (запустить в sandbox), /diff (изменения), /scan (скан проекта), /fim (fill-in-the-middle), /lib (библиотека сниппетов), /help (справка). Код выполняется в изолированном sandbox — опасные операции блокируются. Авто-fix при ошибке включается чекбоксом. Поддержка мульти-файловой генерации.</div>
+        <div class="q">Сценарист — что это?</div>
+        <div class="a">AI-агент, который превращает идею в структурированный сценарий со сценами и кадрами. Можно использовать отдельно от рендера — просто чтобы увидеть сценарий.</div>
     </div>
 
     <div class="faq-item">
-        <div class="q">Media Generation — что входит и что нужно?</div>
-        <div class="a">Изображения: SDXL через ComfyUI, чекпоинты в ComfyUI/models/checkpoints/. Видео: LTX-Video (text-to-video, image-to-video), модель ltx-video-2.3.safetensors. LatentSync: lip-sync для talking-head видео, требует клон ~/latentsync + чекпоинты. LivePortrait: анимация лица по образцу мимики — один кадр → видео с мимикой. Всё локально.</div>
+        <div class="q">FORGE — что это?</div>
+        <div class="a">Встроенный AI-кодер. Slash-команды: /review, /refactor, /explain, /test, /generate, /fix, /run. Безопасный sandbox, авто-fix, мульти-файлы.</div>
     </div>
 
     <div class="faq-item">
-        <div class="q">Voice — как использовать голосовой режим?</div>
-        <div class="a">Голосовой ввод + синтез речи. TTS-движки: say (встроенный macOS, по умолчанию), Chatterbox, Qwen3-TTS. Запуск: ./RunORION_Voice.command say или Menu → Voice → Start voice loop. Распознавание речи (STT) через macOS Speech Framework — работает без интернета.</div>
+        <div class="q">Media Generation — что входит?</div>
+        <div class="a">Изображения (SDXL), видео (LTX-Video), lip-sync (LatentSync), анимация лица (LivePortrait). Всё локально на вашем Mac.</div>
     </div>
 
     <div class="faq-item">
-        <div class="q">Self-Awareness — что такое самосознание ORION?</div>
-        <div class="a">ORION имеет имя, характер, стиль общения. Может выбрать себе имя сам в процессе диалога. Память: семантическая (факты), эпизодическая (каждый диалог как эпизод с оценкой), сессии (тематические беседы). Self-observer: каждые 5 диалогов ORION анализирует себя — что получилось, что нет, какие паттерны. Вкладка «Самосознание» показывает идентичность, состояние, факты, эпизоды, сессии.</div>
+        <div class="q">Voice — как включить голос?</div>
+        <div class="a">Говорите с ORION без клавиатуры. Встроенный macOS голос по умолчанию, опционально Chatterbox и Qwen3-TTS. Распознавание речи работает офлайн.</div>
     </div>
 
     <div class="faq-item">
-        <div class="q">Сценарист — как работает AI-агент сценария?</div>
-        <div class="a">Сценарист — первый из пяти AI-агентов ATELIER. Превращает одну фразу-идею в полный сценарий: структурирует на сцены и кадры, описывает визуал/настроение/темп, задаёт стиль, определяет хронометраж. Конвейер: Сценарист → Режиссёр (структура, темп) → Раскадровщик (кадры → SDXL-промпты) → Ревьюер (проверка качества) → Композитор промптов (финальные промпты). Пример: «Девушка идёт по неоновому городу ночью» → 3 сцены, 8 кадров, cyberpunk, medium темп.</div>
+        <div class="q">Self-Awareness — что это?</div>
+        <div class="a">ORION имеет имя, характер и память. Анализирует себя после каждого диалога, учится на ошибках, развивает личность.</div>
     </div>
 </section>
 
@@ -582,27 +582,22 @@
         <div class="doc-item">
             <div class="doc-header" onclick="this.parentElement.classList.toggle('open')">
                 <span class="doc-icon">🧠</span>
-                <span class="doc-title">NEXUS — Диалог с AI</span>
+                <span class="doc-title">NEXUS — Диалог</span>
                 <span class="doc-tag">основной модуль</span>
                 <span class="doc-toggle">+</span>
             </div>
             <div class="doc-body"><div class="doc-body-inner">
-                <p>NEXUS — сердце ORION. Живой диалог с локальным LLM через Ollama. ORION не просто отвечает — он запоминает, учится и развивает личность.</p>
-                <h4>Что умеет</h4>
+                <p>Живой диалог с локальным AI. ORION не просто отвечает — он запоминает, учится и развивает личность.</p>
+                <h4>Возможности</h4>
                 <ul>
-                    <li>Ведёт осмысленный диалог на русском и английском</li>
-                    <li>Запоминает факты о вас и о себе (семантическая + эпизодическая память)</li>
-                    <li>Анализирует решения с 4 позиций: оптимист, пессимист, реалист, дисруптор</li>
-                    <li>Ищет в интернете через DuckDuckGo (опционально)</li>
-                    <li>Адаптирует стиль общения на основе обратной связи</li>
-                    <li>Экспортирует диалоги в Markdown</li>
+                    <li>Диалог на русском и английском</li>
+                    <li>Память: факты о вас и о себе</li>
+                    <li>Анализ с 4 позиций: оптимист, пессимист, реалист, дисруптор</li>
+                    <li>Веб-поиск через DuckDuckGo (опционально)</li>
+                    <li>Обучение на обратной связи (👍/👎)</li>
                 </ul>
-                <h4>Как использовать</h4>
-                <p>Просто начните печатать в окне диалога. ORION отвечает в реальном времени.</p>
-                <p>Кнопки под ответом: <span class="shortcut">👍</span> хороший ответ, <span class="shortcut">👎</span> не то — ORION учится.</p>
-                <p>Вкладка «Самосознание» — показывает что ORION знает о себе и о вас.</p>
                 <h4>Модели</h4>
-                <p>По умолчанию: <span class="shortcut">qwen2.5:7b-instruct</span>. Для 32 GB+ RAM: <span class="shortcut">qwen2.5:32b</span> для лучшего качества.</p>
+                <p>По умолчанию: <span class="shortcut">qwen2.5:7b</span>. Для 32 GB+ RAM: <span class="shortcut">qwen2.5:32b</span>.</p>
             </div></div>
         </div>
         <div class="doc-item">
@@ -613,63 +608,40 @@
                 <span class="doc-toggle">+</span>
             </div>
             <div class="doc-body"><div class="doc-body-inner">
-                <p>ATELIER превращает идею в готовый видеоролик. Цепочка: идея → сценарий → раскадровка → рендер кадров → анимация → финальный MP4.</p>
-                <h4>Пайплайн</h4>
+                <p>Одна фраза → готовый видеоролик. Пять AI-агентов работают автоматически.</p>
+                <h4>Этапы</h4>
                 <ul>
-                    <li><b>Идея</b> — вы описываете концепцию одним предложением</li>
-                    <li><b>Сценарий</b> — Сценарист пишет структуру: сцены, кадры, описание</li>
-                    <li><b>Раскадровка</b> — генерация промптов для каждого кадра</li>
-                    <li><b>Рендер</b> — SDXL генерирует изображения через ComfyUI</li>
-                    <li><b>Анимация</b> — LTX-Video оживляет кадры</li>
-                    <li><b>Сборка</b> — ffmpeg собирает финальный MP4</li>
+                    <li><b>Идея</b> → <b>Сценарий</b> → <b>Раскадровка</b> → <b>Рендер</b> → <b>Анимация</b> → <b>MP4</b></li>
                 </ul>
-                <h4>Стили генерации</h4>
+                <h4>Стили</h4>
                 <ul>
-                    <li><b>Photoreal</b> — фотореалистичные кадры</li>
-                    <li><b>Anime</b> — аниме-стилистика</li>
-                    <li><b>Cyberpunk</b> — неон, футуризм</li>
-                    <li><b>Cartoon</b> — мультяшный стиль</li>
+                    <li>Photoreal · Anime · Cyberpunk · Cartoon</li>
                 </ul>
                 <h4>Требования</h4>
-                <p>Нужен установленный <b>ComfyUI</b> с чекпоинтом SDXL (рекомендуется <span class="shortcut">DreamShaperXL_Lightning</span>).</p>
-                <p>Для видео: модель <span class="shortcut">ltx-video-2.3.safetensors</span> в папке <span class="shortcut">ComfyUI/models/video/</span>.</p>
-                <h4>Запуск</h4>
-                <p>Вкладка «ATELIER» → введите идею → нажмите «Полный цикл». ORION сделает всё сам.</p>
+                <p>ComfyUI + SDXL чекпоинт. Для видео: LTX-Video модель.</p>
             </div></div>
         </div>
         <div class="doc-item">
             <div class="doc-header" onclick="this.parentElement.classList.toggle('open')">
                 <span class="doc-icon">✍️</span>
-                <span class="doc-title">Сценарист — AI-агент сценария</span>
+                <span class="doc-title">Сценарист</span>
                 <span class="doc-tag">часть ATELIER</span>
                 <span class="doc-toggle">+</span>
             </div>
             <div class="doc-body"><div class="doc-body-inner">
-                <p>Сценарист — это AI-агент внутри ATELIER, который превращает вашу идею в структурированный сценарий. Он работает локально через Ollama — без интернета, без облака.</p>
+                <p>AI-агент, превращающий идею в структурированный сценарий. Работает локально — без интернета.</p>
                 <h4>Что делает</h4>
                 <ul>
-                    <li>Превращает одну фразу-идею в полный сценарий</li>
-                    <li>Структурирует на сцены и кадры</li>
-                    <li>Описывает визуал, настроение, темп каждого кадра</li>
-                    <li>Задаёт стиль (photoreal, anime, cyberpunk, cartoon)</li>
-                    <li>Определяет хронометраж и последовательность</li>
-                    <li>Создаёт описание для раскадровщика</li>
+                    <li>Превращает фразу в сценарий со сценами и кадрами</li>
+                    <li>Описывает визуал, настроение, темп</li>
+                    <li>Задаёт стиль и хронометраж</li>
                 </ul>
-                <h4>Как использовать</h4>
-                <p>Вкладка «ATELIER» → введите идею → выберите «Только сценарий» (без рендера) или «Полный цикл».</p>
-                <p>Результат: структурированный сценарий с сценами, кадрами и описаниями. Можно отредактировать перед рендером.</p>
-                <h4>Конвейер агентов</h4>
-                <p>Сценарист — первый из пяти AI-агентов ATELIER:</p>
+                <h4>Конвейер из 5 агентов</h4>
                 <ul>
-                    <li><b>Сценарист</b> — идея → сценарий</li>
-                    <li><b>Режиссёр</b> — структура, темп, композиция</li>
-                    <li><b>Раскадровщик</b> — кадры → SDXL-промпты</li>
-                    <li><b>Ревьюер</b> — проверка качества и консистентности</li>
-                    <li><b>Композитор промптов</b> — финальные промпты для рендера</li>
+                    <li>Сценарист → Режиссёр → Раскадровщик → Ревьюер → Композитор промптов</li>
                 </ul>
-                <h4>Пример</h4>
-                <p>Идея: «Девушка идёт по неоновому городу ночью»</p>
-                <p>Сценарист создаёт: 3 сцены, 8 кадров, стиль cyberpunk, темп medium, описания освещения и атмосферы для каждого кадра.</p>
+                <h4>Использование</h4>
+                <p>Вкладка «ATELIER» → «Только сценарий» или «Полный цикл».</p>
             </div></div>
         </div>
         <div class="doc-item">
@@ -680,28 +652,15 @@
                 <span class="doc-toggle">+</span>
             </div>
             <div class="doc-body"><div class="doc-body-inner">
-                <p>FORGE — встроенный AI-кодер. Генерирует, проверяет и запускает код. Работает в потоковом режиме с подсветкой синтаксиса.</p>
-                <h4>Slash-команды</h4>
+                <p>AI-кодер: генерирует, проверяет и запускает код. Потоковый режим, подсветка синтаксиса.</p>
+                <h4>Команды</h4>
                 <ul>
-                    <li><span class="shortcut">/review</span> — ревью вашего кода</li>
-                    <li><span class="shortcut">/refactor</span> — рефакторинг</li>
-                    <li><span class="shortcut">/explain</span> — объяснить как работает код</li>
-                    <li><span class="shortcut">/test</span> — сгенерировать тесты</li>
-                    <li><span class="shortcut">/generate</span> — сгенерировать новый код</li>
-                    <li><span class="shortcut">/fix</span> — исправить ошибку</li>
-                    <li><span class="shortcut">/run</span> — запустить код в sandbox</li>
-                    <li><span class="shortcut">/diff</span> — показать изменения</li>
-                    <li><span class="shortcut">/scan</span> — просканировать проект</li>
-                    <li><span class="shortcut">/fim</span> — fill-in-the-middle completion</li>
-                    <li><span class="shortcut">/lib</span> — библиотека сниппетов</li>
-                    <li><span class="shortcut">/help</span> — справка</li>
+                    <li><span class="shortcut">/review</span> · <span class="shortcut">/refactor</span> · <span class="shortcut">/explain</span> · <span class="shortcut">/test</span></li>
+                    <li><span class="shortcut">/generate</span> · <span class="shortcut">/fix</span> · <span class="shortcut">/run</span> · <span class="shortcut">/diff</span></li>
+                    <li><span class="shortcut">/scan</span> · <span class="shortcut">/fim</span> · <span class="shortcut">/lib</span> · <span class="shortcut">/help</span></li>
                 </ul>
                 <h4>Безопасность</h4>
-                <p>Код выполняется в изолированном sandbox. Опасные операции (удаление файлов, сетевые запросы) блокируются.</p>
-                <h4>Авто-fix</h4>
-                <p>Если код падает в sandbox — FORGE автоматически предлагает исправление. Включается чекбоксом «Авто-fix».</p>
-                <h4>Мульти-файлы</h4>
-                <p>FORGE может генерировать несколько файлов за раз.</p>
+                <p>Изолированный sandbox. Авто-fix при ошибке. Мульти-файловая генерация.</p>
             </div></div>
         </div>
         <div class="doc-item">
@@ -712,39 +671,32 @@
                 <span class="doc-toggle">+</span>
             </div>
             <div class="doc-body"><div class="doc-body-inner">
-                <p>Генерация изображений, видео и lip-sync — всё локально на вашем Mac.</p>
-                <h4>Изображения (SDXL)</h4>
-                <p>Генерация через ComfyUI. Поддержка ControlNet (OpenPose, Depth, Canny).</p>
-                <p>Чекпоинты кладутся в <span class="shortcut">ComfyUI/models/checkpoints/</span>.</p>
-                <h4>Видео (LTX-Video)</h4>
-                <p>Text-to-video и Image-to-video генерация. Модель: <span class="shortcut">ltx-video-2.3.safetensors</span>.</p>
-                <h4>LatentSync — Lip-sync</h4>
-                <p>Синхронизация губ на видео с аудиодорожкой. Создаёт talking-head видео.</p>
-                <p>Требует: клон <span class="shortcut">~/latentsync</span> + модельные чекпоинты.</p>
-                <h4>LivePortrait — Анимация лица</h4>
-                <p>Оживляет статичное фото по образцу мимики из видео. Один кадр → видео с мимикой.</p>
+                <p>Изображения, видео и lip-sync — всё локально на вашем Mac.</p>
+                <h4>Возможности</h4>
+                <ul>
+                    <li><b>SDXL</b> — генерация изображений через ComfyUI</li>
+                    <li><b>LTX-Video</b> — text-to-video и image-to-video</li>
+                    <li><b>LatentSync</b> — lip-sync для talking-head видео</li>
+                    <li><b>LivePortrait</b> — анимация лица из одного фото</li>
+                </ul>
             </div></div>
         </div>
         <div class="doc-item">
             <div class="doc-header" onclick="this.parentElement.classList.toggle('open')">
                 <span class="doc-icon">🎙️</span>
-                <span class="doc-title">Voice — Голосовой ввод/вывод</span>
+                <span class="doc-title">Voice — Голос</span>
                 <span class="doc-tag">опционально</span>
                 <span class="doc-toggle">+</span>
             </div>
             <div class="doc-body"><div class="doc-body-inner">
-                <p>Голосовой режим — говорите с ORION без клавиатуры. Речевой ввод + синтез речи.</p>
-                <h4>TTS-движки</h4>
+                <p>Говорите с ORION без клавиатуры. Речевой ввод + синтез речи.</p>
+                <h4>Голоса</h4>
                 <ul>
-                    <li><b>say</b> — встроенный macOS (по умолчанию, без установки)</li>
+                    <li><b>say</b> — встроенный macOS (по умолчанию)</li>
                     <li><b>Chatterbox</b> — продвинутый TTS</li>
-                    <li><b>Qwen3-TTS</b> — продвинутый TTS через Ollama</li>
+                    <li><b>Qwen3-TTS</b> — через Ollama</li>
                 </ul>
-                <h4>Запуск</h4>
-                <p>Терминал: <span class="shortcut">./RunORION_Voice.command say</span></p>
-                <p>Или в приложении: Menu → Voice → Start voice loop.</p>
-                <h4>STT</h4>
-                <p>Распознавание речи через встроенный macOS Speech Framework. Работает без интернета.</p>
+                <p>Распознавание речи работает офлайн.</p>
             </div></div>
         </div>
         <div class="doc-item">
@@ -755,19 +707,15 @@
                 <span class="doc-toggle">+</span>
             </div>
             <div class="doc-body"><div class="doc-body-inner">
-                <p>ORION знает кто он, что умеет, и учится на каждом диалоге. Это не просто LLM — это агент с памятью и идентичностью.</p>
-                <h4>Идентичность</h4>
-                <p>ORION имеет имя, характер, стиль общения. Может выбрать себе имя сам в процессе диалога.</p>
+                <p>ORION — не просто LLM. Он имеет имя, характер и память. Учится на каждом диалоге.</p>
                 <h4>Память</h4>
                 <ul>
-                    <li><b>Семантическая</b> — факты («пользователь любит Python»)</li>
-                    <li><b>Эпизодическая</b> — каждый диалог как эпизод с оценкой</li>
-                    <li><b>Сессии</b> — разделение на тематические беседы</li>
+                    <li><b>Семантическая</b> — факты о мире</li>
+                    <li><b>Эпизодическая</b> — каждый диалог как эпизод</li>
+                    <li><b>Сессии</b> — тематические беседы</li>
                 </ul>
                 <h4>Self-observer</h4>
-                <p>Каждые 5 диалогов ORION анализирует себя: что получилось, что нет, какие паттерны. Извлекает факты и корректирует поведение.</p>
-                <h4>Вкладка «Самосознание»</h4>
-                <p>Показывает: идентичность, текущее состояние, факты о себе, факты о пользователе, последние эпизоды, список сессий.</p>
+                <p>Периодически анализирует себя: что получилось, что нет, какие паттерны. Корректирует поведение.</p>
             </div></div>
         </div>
     </div>
