@@ -537,6 +537,41 @@
         <div class="q">Можно ли использовать Сценариста отдельно от рендера?</div>
         <div class="a">Да. Вкладка «ATELIER» → «Только сценарий». Вы получите готовый сценарий с сценами и кадрами без генерации изображений. Это полезно для превью идеи перед рендером.</div>
     </div>
+
+    <div class="faq-item">
+        <div class="q">NEXUS — как работает диалог с AI?</div>
+        <div class="a">NEXUS — основной модуль ORION. Живой диалог с локальным LLM через Ollama. ORION запоминает факты о вас и о себе (семантическая + эпизодическая память), анализирует решения с 4 позиций (оптимист, пессимист, реалист, дисруптор), ищет в интернете через DuckDuckGo (опционально), адаптирует стиль общения на основе обратной связи. Кнопки 👍/👎 под ответом помогают ORION учиться. По умолчанию: qwen2.5:7b-instruct. Для 32 GB+ RAM: qwen2.5:32b. Переключить модель: ORION_CONVERSE_MODEL.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">ATELIER — как работает кинопайплайн?</div>
+        <div class="a">ATELIER превращает идею в готовый видеоролик: идея → сценарий → раскадровка → рендер кадров → анимация → финальный MP4. Стили: photoreal, anime, cyberpunk, cartoon. Нужен ComfyUI с чекпоинтом SDXL (DreamShaperXL_Lightning). Для видео: ltx-video-2.3.safetensors. Запуск: вкладка «ATELIER» → введите идею → «Полный цикл».</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">FORGE — какие slash-команды есть?</div>
+        <div class="a">FORGE — встроенный AI-кодер: /review (ревью), /refactor (рефакторинг), /explain (объяснить код), /test (тесты), /generate (новый код), /fix (исправить ошибку), /run (запустить в sandbox), /diff (изменения), /scan (скан проекта), /fim (fill-in-the-middle), /lib (библиотека сниппетов), /help (справка). Код выполняется в изолированном sandbox с AST-анализом. Авто-fix при ошибке включается чекбоксом. Мульти-файлы через маркер // file: path.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Media Generation — что входит и что нужно?</div>
+        <div class="a">Изображения: SDXL через ComfyUI, чекпоинты в ComfyUI/models/checkpoints/. Видео: LTX-Video (text-to-video, image-to-video), модель ltx-video-2.3.safetensors. LatentSync: lip-sync для talking-head видео, требует клон ~/latentsync + чекпоинты. LivePortrait: анимация лица по образцу мимики — один кадр → видео с мимикой. Всё локально.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Voice — как использовать голосовой режим?</div>
+        <div class="a">Голосовой ввод + синтез речи. TTS-движки: say (встроенный macOS, по умолчанию), Chatterbox (pip install chatterbox-tts), Qwen3-TTS (через Ollama). Запуск: ./RunORION_Voice.command say или Menu → Voice → Start voice loop. Распознавание речи (STT) через macOS Speech Framework — работает без интернета.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Self-Awareness — что такое самосознание ORION?</div>
+        <div class="a">ORION имеет имя, характер, стиль общения (~/Documents/ORION/.state/self_model.json). Может выбрать имя сам через [MY_NAME: ...]. Память: семантическая (факты), эпизодическая (каждый диалог как эпизод с оценкой), сессии (тематические беседы). Self-observer: каждые 5 диалогов ORION анализирует себя — что получилось, что нет, какие паттерны. Вкладка «Самосознание» показывает идентичность, состояние, факты, эпизоды, сессии.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="q">Сценарист — как работает AI-агент сценария?</div>
+        <div class="a">Сценарист — первый из пяти AI-агентов ATELIER. Превращает одну фразу-идею в полный сценарий: структурирует на сцены и кадры, описывает визуал/настроение/темп, задаёт стиль, определяет хронометраж. Конвейер: Сценарист → Режиссёр (структура, темп) → Раскадровщик (кадры → SDXL-промпты) → Ревьюер (проверка качества) → Композитор промптов (финальные промпты). Пример: «Девушка идёт по неоновому городу ночью» → 3 сцены, 8 кадров, cyberpunk, medium темп.</div>
+    </div>
 </section>
 
 <!-- ── Documentation ───────────────────────────── -->
