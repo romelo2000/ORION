@@ -224,6 +224,20 @@
             font-size: 13px; font-weight: 600; margin-bottom: 24px;
         }
 
+        /* ── Collaboration ────────────────────────── */
+        .collab-card {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .collab-item {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 28px; text-align: center; transition: .2s;
+        }
+        .collab-item:hover { background: var(--bg-card-hover); border-color: var(--accent); }
+        .collab-item .icon { font-size: 36px; margin-bottom: 12px; }
+        .collab-item h3 { font-size: 18px; margin-bottom: 8px; }
+        .collab-item p { color: var(--text-dim); font-size: 14px; line-height: 1.7; }
+
         @media (max-width: 600px) {
             nav .links a:not(.buy) { display: none; }
             .hero { padding-top: 100px; }
@@ -468,6 +482,34 @@
     <div class="faq-item">
         <div class="q">Как активировать Pro-лицензию?</div>
         <div class="a">После покупки вы получите лицензионный ключ. Откройте ORION → строка меню → License → Activate. Введите email и ключ. Готово.</div>
+    </div>
+</section>
+
+<!-- ── Collaboration ────────────────────────────── -->
+<section id="collab">
+    <h2>Открыт к сотрудничеству</h2>
+    <p class="subtitle">ORION — живой проект. Я ищу единомышленников чтобы довести его до совершенства.</p>
+
+    <div class="collab-card">
+        <div class="collab-item">
+            <div class="icon">🤝</div>
+            <h3>Разработчикам</h3>
+            <p>Python, PyTorch, PySide6, ComfyUI, LatentSync — есть где разгуляться. Архитектура модульная, код чистый.</p>
+        </div>
+        <div class="collab-item">
+            <div class="icon">🎨</div>
+            <h3>Креаторам</h3>
+            <p>Тестирование пайплайнов, новые стили генерации, сценарии для ATELIER. Ваш визуальный опыт бесценен.</p>
+        </div>
+        <div class="collab-item">
+            <div class="icon">💡</div>
+            <h3>Идеологам</h3>
+            <p>Концепции, UX, продукт-видение. ORION должен стать лучшей локальной AI-студией — помогите ему.</p>
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top:36px">
+        <a href="mailto:support@matoka.studio?subject=ORION collaboration" class="btn-primary">Связаться</a>
     </div>
 </section>
 
